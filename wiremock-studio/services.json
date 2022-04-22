@@ -1,0 +1,8 @@
+{
+  "services" : [ {
+    "id" : "6vxvj",
+    "name" : "Cards",
+    "port" : 8000,
+    "rootDir" : "cards"
+  } ]
+}

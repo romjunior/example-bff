@@ -1,0 +1,27 @@
+{
+  "id" : "611bc931-606d-4e29-8ad7-e17cd5e26f9b",
+  "name" : "Get Tracking of Card 2",
+  "request" : {
+    "urlPath" : "/tracking",
+    "method" : "GET",
+    "queryParameters" : {
+      "cardId" : {
+        "equalTo" : "2"
+      }
+    }
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\n  \"message\": \"Não existe tracking para esse cartão\"\n}\n",
+    "headers" : { },
+    "delayDistribution" : {
+      "type" : "uniform",
+      "lower" : 50,
+      "upper" : 500
+    }
+  },
+  "uuid" : "611bc931-606d-4e29-8ad7-e17cd5e26f9b",
+  "persistent" : true,
+  "priority" : 5,
+  "insertionIndex" : 2
+}

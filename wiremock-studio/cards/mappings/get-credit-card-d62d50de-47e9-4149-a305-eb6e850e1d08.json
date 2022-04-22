@@ -1,0 +1,27 @@
+{
+  "id" : "d62d50de-47e9-4149-a305-eb6e850e1d08",
+  "name" : "Get Credit Card  of User 1",
+  "request" : {
+    "urlPath" : "/card",
+    "method" : "GET",
+    "queryParameters" : {
+      "userId" : {
+        "equalTo" : "1"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[\n  {\n    \"id\": 1\n    \"cardNumber\": \"3233****43241\",\n    \"name\": \"João Costa Henrique\",\n    \"expirationDate\": \"2024-10-02\"\n  },\n  {\n    \"id\": 2\n    \"cardNumber\": \"5404****40202\",\n    \"name\": \"Maria Silva\",\n    \"expirationDate\": \"2023-10-02\"\n  }\n]\n\n",
+    "headers" : { },
+    "delayDistribution" : {
+      "type" : "uniform",
+      "lower" : 50,
+      "upper" : 500
+    }
+  },
+  "uuid" : "d62d50de-47e9-4149-a305-eb6e850e1d08",
+  "persistent" : true,
+  "priority" : 5,
+  "insertionIndex" : 0
+}
