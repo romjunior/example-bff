@@ -23,13 +23,13 @@ public class WebClientConfig {
     private String appName;
 
     @Value("${application.timeout}")
-    private String timeout;
+    private Integer timeout;
 
     @Value("${application.connectTimeout}")
-    private String connectTimeout;
+    private Integer connectTimeout;
 
     @Bean
-    private WebClient.Builder webClientBuilder() {
+    WebClient.Builder webClientBuilder() {
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .defaultHeader(HttpHeaders.ORIGIN, appName)
@@ -38,8 +38,8 @@ public class WebClientConfig {
     }
     private ClientHttpConnector timeouts() {
         return new ReactorClientHttpConnector(HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Integer.parseInt(connectTimeout))
-                .responseTimeout(Duration.ofMillis(Long.parseLong(timeout))));
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectTimeout)
+                .responseTimeout(Duration.ofMillis(timeout)));
     }
     private ExchangeFilterFunction logRequest() {
         return ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {
