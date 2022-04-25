@@ -12,8 +12,10 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\n  \"address\": \"Rua Variola da Silva\",\n  steps: [\n      {\n        \"address\": \"Rua biro biro\",\n        \"date\": \"2020-04-01\"\n      },\n      {\n        \"address\": \"Rua misilva\",\n        \"date\": \"2020-04-04\"\n      },\n      {\n        \"address\": \"Avenida souza\",\n        \"date\": \"2020-04-10\"\n      }\n    ]\n}\n",
-    "headers" : { },
+    "body" : "{\n  \"address\": \"Rua Variola da Silva\",\n  \"steps\": [\n      {\n        \"address\": \"Rua biro biro\",\n        \"date\": \"2020-04-01\"\n      },\n      {\n        \"address\": \"Rua misilva\",\n        \"date\": \"2020-04-04\"\n      },\n      {\n        \"address\": \"Avenida souza\",\n        \"date\": \"2020-04-10\"\n      }\n    ]\n}\n",
+    "headers" : {
+      "Content-Type" : "application/json"
+    },
     "delayDistribution" : {
       "type" : "uniform",
       "lower" : 50,
@@ -23,5 +25,5 @@
   "uuid" : "17259ed4-9bee-41d5-a76f-b287d2646ad4",
   "persistent" : true,
   "priority" : 5,
-  "insertionIndex" : 1
+  "insertionIndex" : 2
 }

@@ -1,0 +1,11 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: reactive-bff
+
+application:
+  timeout: 5000
+  connectTimeout: 200
+  allow-headers-log: Content-Type, Accept, Origin

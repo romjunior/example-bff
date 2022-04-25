@@ -76,8 +76,8 @@ project(':config') {
 	}
 
 	dependencies {
-		implementation project(':api')
-		implementation project(':integration')
+		implementation project(':api:credit-card-api')
+		implementation project(':integration:credit-card-integration')
 		runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	}
 }
@@ -85,6 +85,12 @@ project(':config') {
 project(':api') {
 	jar {
 		enabled = false
+	}
+}
+
+project(':api:credit-card-api') {
+	dependencies {
+		implementation project(':integration:credit-card-integration')
 	}
 }
 

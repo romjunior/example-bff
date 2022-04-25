@@ -13,7 +13,9 @@
   "response" : {
     "status" : 404,
     "body" : "{\n  \"message\": \"Não existe tracking para esse cartão\"\n}\n",
-    "headers" : { },
+    "headers" : {
+      "Content-Type" : "application/json"
+    },
     "delayDistribution" : {
       "type" : "uniform",
       "lower" : 50,
@@ -23,5 +25,5 @@
   "uuid" : "611bc931-606d-4e29-8ad7-e17cd5e26f9b",
   "persistent" : true,
   "priority" : 5,
-  "insertionIndex" : 2
+  "insertionIndex" : 1
 }
