@@ -2,5 +2,4 @@ rootProject.name = projectName
 include 'api:credit-card-api'
 include 'config'
 include 'integration:credit-card-integration'
-findProject(':integration:credit-card-integration')?.name = 'credit-card-integration'
 
