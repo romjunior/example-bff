@@ -1,31 +1,15 @@
 package com.estudo.client;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
-class CreditCardClient {
+import java.util.List;
 
-    private final WebClient client;
+@FeignClient(value = "CreditCardClient", url = "${credit-card.url}", decode404 = true)
+interface CreditCardClient {
 
-    public CreditCardClient(
-            final WebClient.Builder builder,
-            @Value("${credit-card.url}") final String baseUrl
-    ) {
-        client = builder.baseUrl(baseUrl)
-                .build();
-    }
-
-    Flux<CardDTO> getAllCards(final int userId) {
-        return client.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/card").
-                        queryParam("userId", userId)
-                        .build())
-                .retrieve()
-                .bodyToFlux(CardDTO.class);
-    }
-
+    @GetMapping(value = "/card", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    List<CardDTO> getAllCards(@RequestParam("userId") final Integer userId);
 }

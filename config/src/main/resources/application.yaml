@@ -5,7 +5,18 @@ spring:
   application:
     name: reactive-bff
 
-application:
-  timeout: 5000
-  connectTimeout: 200
-  allow-headers-log: Content-Type, Accept, Origin
+logging:
+  level:
+    com.estudo: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 200
+        readTimeout: 5000
+        loggerLevel: full
+        defaultRequestHeaders:
+          User-Agent: ${spring.application.name}
+          Accept: "application/json"
+        decode404: true

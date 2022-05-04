@@ -1,29 +1,12 @@
 package com.estudo.client;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
-class TrackingClient {
+@FeignClient(value = "TrackingClient", url = "${credit-card.tracking}", decode404 = true)
+interface TrackingClient {
 
-    private final WebClient client;
-
-    public TrackingClient(WebClient.Builder builder, @Value("${credit-card.tracking}") final String url) {
-        this.client = builder
-                .baseUrl(url)
-                .build();
-    }
-
-    Mono<TrackingDTO> getTrackingOfCard(final int cardId) {
-        return client.get()
-                .uri(uriBuilder -> uriBuilder.path("/tracking")
-                        .queryParam("cardId", cardId)
-                        .build())
-                .retrieve()
-                .onStatus(HttpStatus.NOT_FOUND::equals, clientResponse -> Mono.empty())
-                .bodyToMono(TrackingDTO.class);
-    }
+    @GetMapping("/tracking")
+    TrackingDTO getTrackingOfCard(@RequestParam("cardId") final Integer cardId);
 }

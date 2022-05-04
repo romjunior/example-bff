@@ -18,8 +18,8 @@
     },
     "delayDistribution" : {
       "type" : "uniform",
-      "lower" : 50,
-      "upper" : 500
+      "lower" : 500,
+      "upper" : 5000
     }
   },
   "uuid" : "17259ed4-9bee-41d5-a76f-b287d2646ad4",

@@ -1,8 +1,8 @@
 package com.estudo.client;
 
-import reactor.core.publisher.Flux;
+import java.util.List;
 
 public interface ListAllCreditCards {
 
-    Flux<CreditCardDTO> getAllCreditCards(final int userId);
+    List<CreditCardDTO> getAllCreditCards(final int userId);
 }

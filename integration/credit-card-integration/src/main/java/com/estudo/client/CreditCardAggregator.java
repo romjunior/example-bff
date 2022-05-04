@@ -3,7 +3,8 @@ package com.estudo.client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -13,13 +14,12 @@ class CreditCardAggregator implements ListAllCreditCards {
     private final TrackingClient trackingClient;
 
     @Override
-    public Flux<CreditCardDTO> getAllCreditCards(int userId) {
+    public List<CreditCardDTO> getAllCreditCards(int userId) {
         return creditCardClient.getAllCards(userId)
-                .doOnNext(cardDTO -> log.info("M=getAllCreditCards retrive cardId={}", cardDTO.id()))
+                .stream()
+                .peek(cardDTO -> log.info("M=getAllCreditCards retrive cardId={}", cardDTO.id()))
                 .map(CreditCardDTO::of)
-                .flatMap(creditCard -> trackingClient
-                        .getTrackingOfCard(creditCard.getId())
-                        .doOnNext(trackingDTO -> log.info("M=getAllCreditCards retrieveTracking cardId={}", creditCard.getId()))
-                        .map(creditCard::addTracking));
+                .map(creditCardDTO -> creditCardDTO.addTracking(trackingClient.getTrackingOfCard(creditCardDTO.getId())))
+                .toList();
     }
 }

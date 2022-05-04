@@ -5,7 +5,8 @@ import com.estudo.client.ListAllCreditCards;
 import com.estudo.domain.CreditCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,9 +14,11 @@ public class CreditCardService {
 
     private final ListAllCreditCards listAllCreditCards;
 
-    public Flux<CreditCard> listAllCreditCardsFromUser(final int userId) {
+    public List<CreditCard> listAllCreditCardsFromUser(final int userId) {
         return listAllCreditCards.getAllCreditCards(userId)
-                .map(this::convert);
+                .stream()
+                .map(this::convert)
+                .toList();
     }
 
     CreditCard convert(final CreditCardDTO dto) {
