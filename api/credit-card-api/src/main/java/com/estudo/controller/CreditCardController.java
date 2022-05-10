@@ -4,7 +4,6 @@ package com.estudo.controller;
 import com.estudo.service.CreditCardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +26,6 @@ public class CreditCardController {
                 .map(CreditCardResponse::of)
                 .toList();
         log.info("M=geAllCardsOfUser success userId={}", userId);
-        return card.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(card);
+        return ResponseEntity.ok(card);
     }
 }

@@ -38,14 +38,14 @@ public class CreditCardDTO {
     }
 
     public String getAddress() {
-        return trackingDTO.address();
+        return trackingDTO == null ? null : trackingDTO.address();
     }
 
     public List<CreditCardStep> getSteps() {
-        return trackingDTO.steps() == null ? List.of() : trackingDTO.steps()
+        return trackingDTO != null && trackingDTO.steps() != null ? trackingDTO.steps()
                 .stream()
                 .map(CreditCardStep::of)
-                .toList();
+                .toList() : List.of();
     }
 
     public record CreditCardStep(String address, LocalDate date) {
