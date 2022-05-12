@@ -9,3 +9,30 @@ application:
   timeout: 5000
   connectTimeout: 200
   allow-headers-log: Content-Type, Accept, Origin
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        failureRateThreshold: 60
+        SlowCallRateThreshold: 60
+        permittedNumberOfCallsInHalfOpenState: 5
+        waitDurationInOpenState: 10000
+        slowCallDurationInOpenState: 10000
+        registerHealthIndicator: true
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 500ms
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+

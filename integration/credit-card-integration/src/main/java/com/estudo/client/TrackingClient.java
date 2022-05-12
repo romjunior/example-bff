@@ -1,5 +1,6 @@
 package com.estudo.client;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ class TrackingClient {
                 .build();
     }
 
+    @CircuitBreaker(name = "tracking")
     Mono<TrackingDTO> getTrackingOfCard(final int cardId) {
         return client.get()
                 .uri(uriBuilder -> uriBuilder.path("/tracking")
