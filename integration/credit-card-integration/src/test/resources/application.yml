@@ -1,0 +1,8 @@
+credit-card:
+  url: http://localhost:${wiremock.server.port}
+  tracking: http://localhost:${wiremock.server.port}
+
+
+wiremock:
+  server:
+    port: 7070

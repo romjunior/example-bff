@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/card?userId=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": 1,
+        "cardNumber": "3233****43241",
+        "name": "João Costa Henrique",
+        "expirationDate": "2024-10-02"
+      },
+      {
+        "id": 2,
+        "cardNumber": "5404****40202",
+        "name": "João Costa Henrique",
+        "expirationDate": "2023-10-02"
+      }
+    ]
+  }
+}
