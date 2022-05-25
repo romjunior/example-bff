@@ -1,5 +1,6 @@
 package com.estudo.client;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -20,7 +21,8 @@ class CreditCardClientTest {
     }
 
     @Test
-    void test() {
+    @DisplayName("Deve retornar todos os cartões de créditos da integração")
+    void shouldReturnOK_whenRetrieveAllCreditCards() {
         StepVerifier.create(client.getAllCards(1))
                 .expectNext(new CardDTO(1, "3233****43241", "João Costa Henrique", LocalDate.of(2024, 10, 2)))
                 .expectNext(new CardDTO(2, "5404****40202", "João Costa Henrique", LocalDate.of(2023, 10, 2)))
