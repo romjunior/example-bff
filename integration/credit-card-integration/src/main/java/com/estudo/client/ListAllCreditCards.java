@@ -4,5 +4,5 @@ import reactor.core.publisher.Flux;
 
 public interface ListAllCreditCards {
 
-    Flux<CreditCardDTO> getAllCreditCards(final int userId);
+    Flux<ICreditCardDTO> getAllCreditCards(final int userId);
 }

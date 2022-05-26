@@ -1,6 +1,6 @@
 package com.estudo.service;
 
-import com.estudo.client.CreditCardDTO;
+import com.estudo.client.ICreditCardDTO;
 import com.estudo.client.ListAllCreditCards;
 import com.estudo.domain.CreditCard;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class CreditCardService {
                 .map(this::convert);
     }
 
-    CreditCard convert(final CreditCardDTO dto) {
+    CreditCard convert(final ICreditCardDTO dto) {
         return new CreditCard(
                 dto.getId(),
                 dto.getCardNumber(),

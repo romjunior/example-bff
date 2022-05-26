@@ -1,38 +1,50 @@
 package com.estudo.client;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class CreditCardDTO {
+class CreditCardDTO implements ICreditCardDTO {
 
-    private final int id;
-    private final String cardNumber;
-    private final String name;
-    private final LocalDate expirationDate;
-    @Setter
-    private String address;
-    private final List<CreditCardStep> steps;
+    private final CardDTO cardDTO;
+    private TrackingDTO trackingDTO;
 
-    public static CreditCardDTO of(
-            final int id,
-            final String cardNumber,
-            final String name,
-            final LocalDate expirationDate
-    ) {
-        return new CreditCardDTO(id, cardNumber, name, expirationDate, List.of());
+    public static CreditCardDTO of(final CardDTO cardDTO) {
+        return new CreditCardDTO(cardDTO);
     }
 
-    public void addStep(final String address, final LocalDate date) {
-        steps.add(new CreditCardStep(address, date));
+    public CreditCardDTO addTracking(final TrackingDTO trackingDTO) {
+        this.trackingDTO = trackingDTO;
+        return this;
     }
-    public record CreditCardStep(String address, LocalDate date) {
 
+    public int getId() {
+        return cardDTO.id();
+    }
+
+    public String getName() {
+        return cardDTO.name();
+    }
+
+    public String getCardNumber() {
+        return cardDTO.cardNumber();
+    }
+
+    public LocalDate getExpirationDate() {
+        return cardDTO.expirationDate();
+    }
+
+    public String getAddress() {
+        return trackingDTO.address();
+    }
+
+    public List<CreditCardStep> getSteps() {
+        return trackingDTO.steps() == null ? List.of() : trackingDTO.steps()
+                .stream()
+                .map(stepDTO -> new CreditCardStep(stepDTO.address(), stepDTO.date()))
+                .toList();
     }
 }
