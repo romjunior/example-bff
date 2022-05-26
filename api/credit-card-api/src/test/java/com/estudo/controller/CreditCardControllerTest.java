@@ -1,6 +1,5 @@
 package com.estudo.controller;
 
-import com.estudo.JSONHelper;
 import com.estudo.domain.CreditCard;
 import com.estudo.service.CreditCardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -66,6 +65,15 @@ class CreditCardControllerTest {
     @DisplayName("Deve retornar resposta 500 com path e mensagem de error")
     void shouldReturn500Error() throws IOException {
         Mockito.when(service.listAllCreditCardsFromUser(1)).thenReturn(Flux.error(new Exception()));
+
+        final String json = """
+                {
+                  "path":"/cards",
+                  "status": 500,
+                  "error": "Internal Server Error"
+                }
+                """;
+
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/cards")
@@ -75,7 +83,7 @@ class CreditCardControllerTest {
                 .exchange()
                 .expectStatus()
                 .is5xxServerError()
-                .expectBody().json(JSONHelper.getData(objectMapper, "error-500.json", String.class));
+                .expectBody().json(json);
     }
 
     private Flux<CreditCard> getFluxCreditCards() {

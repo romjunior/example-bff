@@ -1,57 +1,38 @@
 package com.estudo.client;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreditCardDTO {
 
-    private final CardDTO cardDTO;
-    private TrackingDTO trackingDTO;
+    private final int id;
+    private final String cardNumber;
+    private final String name;
+    private final LocalDate expirationDate;
+    @Setter
+    private String address;
+    private final List<CreditCardStep> steps;
 
-    public static CreditCardDTO of(final CardDTO cardDTO) {
-        return new CreditCardDTO(cardDTO);
+    public static CreditCardDTO of(
+            final int id,
+            final String cardNumber,
+            final String name,
+            final LocalDate expirationDate
+    ) {
+        return new CreditCardDTO(id, cardNumber, name, expirationDate, List.of());
     }
 
-    public CreditCardDTO addTracking(final TrackingDTO trackingDTO) {
-        this.trackingDTO = trackingDTO;
-        return this;
+    public void addStep(final String address, final LocalDate date) {
+        steps.add(new CreditCardStep(address, date));
     }
-
-    public int getId() {
-        return cardDTO.id();
-    }
-
-    public String getName() {
-        return cardDTO.name();
-    }
-
-    public String getCardNumber() {
-        return cardDTO.cardNumber();
-    }
-
-    public LocalDate getExpirationDate() {
-        return cardDTO.expirationDate();
-    }
-
-    public String getAddress() {
-        return trackingDTO.address();
-    }
-
-    public List<CreditCardStep> getSteps() {
-        return trackingDTO.steps() == null ? List.of() : trackingDTO.steps()
-                .stream()
-                .map(CreditCardStep::of)
-                .toList();
-    }
-
     public record CreditCardStep(String address, LocalDate date) {
-        static CreditCardStep of(final TrackingDTO.StepDTO stepDTO) {
-            return new CreditCardStep(stepDTO.address(), stepDTO.date());
-        }
 
     }
 }

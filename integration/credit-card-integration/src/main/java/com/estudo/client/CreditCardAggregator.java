@@ -16,10 +16,18 @@ class CreditCardAggregator implements ListAllCreditCards {
     public Flux<CreditCardDTO> getAllCreditCards(int userId) {
         return creditCardClient.getAllCards(userId)
                 .doOnNext(cardDTO -> log.info("M=getAllCreditCards retrive cardId={}", cardDTO.id()))
-                .map(CreditCardDTO::of)
-                .flatMap(creditCard -> trackingClient
-                        .getTrackingOfCard(creditCard.getId())
-                        .doOnNext(trackingDTO -> log.info("M=getAllCreditCards retrieveTracking cardId={}", creditCard.getId()))
-                        .map(creditCard::addTracking));
+                .map(cardDTO -> CreditCardDTO.of(
+                        cardDTO.id(),
+                        cardDTO.cardNumber(),
+                        cardDTO.name(),
+                        cardDTO.expirationDate()
+                )).flatMap(creditCardDTO -> trackingClient.getTrackingOfCard(creditCardDTO.getId())
+                        .map(trackingDTO -> addTracking(creditCardDTO, trackingDTO)));
+    }
+
+    CreditCardDTO addTracking(final CreditCardDTO dto, final TrackingDTO trackingDTO) {
+        dto.setAddress(trackingDTO.address());
+        trackingDTO.steps().forEach(stepDTO -> dto.addStep(stepDTO.address(), stepDTO.date()));
+        return dto;
     }
 }
