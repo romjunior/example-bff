@@ -1,3 +1,19 @@
 plugins {
     id 'org.springframework.boot' version '2.6.7'
 }
+
+application {
+    mainClassName = "com.estudo.ExampleBffApplication"
+}
+
+bootDistZip {
+    archiveBaseName = "${rootProject.name}"
+}
+
+bootStartScripts {
+    applicationName = "${rootProject.name}"
+}
+
+jar {
+    archivesBaseName = "${rootProject.name}"
+}
